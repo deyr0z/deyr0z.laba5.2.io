@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <title>Назаренко Дмитро Володимирович, ІС-з11, лабараторна № 5, варіант № 10</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const table = document.createElement('table');
+    let activePalette = null;
+
+    for (let i = 0; i < 6; i++) {
+      const row = document.createElement('tr');
+
+      for (let j = 0; j < 6; j++) {
+        const cell = document.createElement('td');
+        cell.textContent = i * 6 + j + 1;
+
+        cell.addEventListener('mouseover', function () {
+          if (parseInt(cell.textContent) === 10) {
+            cell.style.backgroundColor = getRandomColor();
+          }
+        });
+
+        cell.addEventListener('click', function () {
+          if (activePalette) {
+            document.body.removeChild(activePalette);
+          }
+          showColorPalette(cell);
+        });
+
+        cell.addEventListener('dblclick', function () {
+          const rowIndex = cell.parentElement.rowIndex;
+          const cells = table.rows[rowIndex].cells;
+
+          for (let k = 0; k < cells.length; k += 2) {
+            cells[k].style.backgroundColor = getRandomColor();
+          }
+        });
+
+        row.appendChild(cell);
+      }
+
+      table.appendChild(row);
+    }
+
+    document.body.appendChild(table);
+  });
+
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  function showColorPalette(cell) {
+    const palette = document.createElement('div');
+    palette.className = 'color-palette';
+
+    // Predefined colors in the palette
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+
+    colors.forEach((color) => {
+      const colorBox = document.createElement('div');
+      colorBox.style.backgroundColor = color;
+      colorBox.addEventListener('click', function () {
+        cell.style.backgroundColor = color;
+        document.body.removeChild(palette);
+      });
+      palette.appendChild(colorBox);
+    });
+
+    document.body.appendChild(palette);
+    activePalette = palette;
+  }
+</script>
+
+</body>
+</html>

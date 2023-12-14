@@ -1,0 +1,27 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+  }
+
+  th, td {
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .color-palette {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  .color-palette div {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    cursor: pointer;
+  }
